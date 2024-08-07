@@ -4,16 +4,21 @@ import {
   Dimensions,
   FlatList,
   Image,
+  Modal,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import Video from 'react-native-video';
 
 const GetStarted1 = () => {
   const [movies, setMovies] = useState([]);
   const [backgroundImage, setBackgroundImage] = useState(null);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     getMovie();
@@ -34,6 +39,14 @@ const GetStarted1 = () => {
     }
   }
 
+  const playTrailer = () => {
+    if (selectedMovie && selectedMovie.trailer) {
+      setModalVisible(true);
+    } else {
+      Alert.alert('No trailer available');
+    }
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.Container}>
       <View style={styles.backgroundContainer}>
@@ -44,14 +57,12 @@ const GetStarted1 = () => {
           />
         )}
         <Image
-          source={require('../assets/img/getStarted2.png')}
+          source={require('../assets/img/getStarted1.png')}
           style={styles.overlayImage}
         />
       </View>
       <View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => Alert.alert('Sup')}>
+        <TouchableOpacity style={styles.button} onPress={playTrailer}>
           <Text style={styles.buttonText}>Play</Text>
         </TouchableOpacity>
       </View>
@@ -61,7 +72,10 @@ const GetStarted1 = () => {
         renderItem={({item}) => (
           <TouchableOpacity
             style={styles.card}
-            onPress={() => setBackgroundImage(item.poster)}>
+            onPress={() => {
+              setBackgroundImage(item.poster);
+              setSelectedMovie(item);
+            }}>
             <Image source={{uri: item.poster}} style={styles.cardImage} />
             <View style={styles.cardContent}>
               <Text style={styles.cardTitle}>{item.title}</Text>
@@ -74,6 +88,27 @@ const GetStarted1 = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.flatListContent}
       />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.modalView}>
+          <Video
+            source={{uri: selectedMovie?.trailer}}
+            style={styles.video}
+            controls={true}
+            resizeMode="contain"
+          />
+          <Pressable
+            style={styles.closeButton}
+            onPress={() => setModalVisible(!modalVisible)}>
+            <Text style={styles.closeButtonText}>Close</Text>
+          </Pressable>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };
@@ -159,5 +194,25 @@ const styles = StyleSheet.create({
   cardRating: {
     color: 'grey',
     fontSize: 14,
+  },
+  modalView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.8)',
+  },
+  video: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  },
+  closeButton: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: 'white',
+    borderRadius: 5,
+  },
+  closeButtonText: {
+    color: 'black',
+    fontSize: 18,
   },
 });
