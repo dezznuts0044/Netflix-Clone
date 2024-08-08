@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 
-const GetStarted2 = () => {
+const GetStarted23 = () => {
   const [email, setEmail] = useState('');
   const [verify, setVerify] = useState(false);
 
@@ -50,7 +50,7 @@ const GetStarted2 = () => {
   );
 };
 
-export default GetStarted2;
+export default GetStarted23;
 
 const styles = StyleSheet.create({
   Container: {

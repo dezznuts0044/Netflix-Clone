@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 
-const GetStarted1 = () => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [verify, setVerify] = useState(false);
 
@@ -59,7 +59,7 @@ const GetStarted1 = () => {
   );
 };
 
-export default GetStarted1;
+export default Login;
 
 const styles = StyleSheet.create({
   icon: {

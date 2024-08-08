@@ -1,6 +1,5 @@
 import {
   Alert,
-  Button,
   Dimensions,
   Image,
   ScrollView,
@@ -14,7 +13,7 @@ import React from 'react';
 const GetStarted1 = () => {
   return (
     <ScrollView style={{backgroundColor: 'black'}}>
-      <View style={styles.Container}>
+      <View style={styles.container}>
         <Image
           source={require('../assets/img/getStarted1.png')}
           style={styles.image}
@@ -27,11 +26,11 @@ const GetStarted1 = () => {
       <Text style={styles.btext1}>
         Unlimited entertainment,{'\n'} one low price.
       </Text>
-      <Text style={styles.btext}>All of Netflix, starting at just ₹149.</Text>
+      <Text style={styles.btext2}>All of Netflix, starting at just ₹149.</Text>
       <TouchableOpacity
         style={styles.button}
         onPress={() => Alert.alert('Button pressed')}>
-        <Text style={styles.btext}>GET STARTED</Text>
+        <Text style={styles.buttonText}>GET STARTED</Text>
       </TouchableOpacity>
     </ScrollView>
   );
@@ -40,7 +39,7 @@ const GetStarted1 = () => {
 export default GetStarted1;
 
 const styles = StyleSheet.create({
-  Container: {
+  container: {
     backgroundColor: 'pink',
     alignItems: 'center',
   },
@@ -64,7 +63,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  btext: {
+  buttonText: {
     color: 'white',
     fontSize: 18,
     fontFamily: 'Montserrat',
@@ -76,5 +75,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat',
     fontWeight: 'bold',
     textAlign: 'center',
+    marginTop: 20,
+  },
+  btext2: {
+    color: 'white',
+    fontSize: 18,
+    fontFamily: 'Montserrat',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: 10,
   },
 });
