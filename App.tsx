@@ -4,6 +4,7 @@ import SplashScreen from './screens/SplashScreen';
 import GetStarted1 from './screens/GetStarted1';
 import GetStarted2 from './screens/GetStarted2';
 import HomeScreen from './screens/HomeScreen';
+import SearchScreen from './screens/SearchScreen';
 import {
   Text,
   View,
