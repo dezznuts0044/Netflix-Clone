@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'white',
-    marginTop: -60,
+    marginTop: 10,
     height: 56,
     width: 100,
     borderRadius: 5,
