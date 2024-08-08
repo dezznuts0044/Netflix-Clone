@@ -3,10 +3,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from './screens/SplashScreen';
 import GetStarted1 from './screens/GetStarted1';
-import GetStarted23 from './screens/GetStarted23';
+import GetStarted2 from './screens/GetStarted2';
 import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import Login from './screens/Login';
 
 const Stack = createStackNavigator();
 
@@ -19,7 +20,8 @@ const App = () => {
       >
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
         <Stack.Screen name="GetStarted1" component={GetStarted1} />
-        <Stack.Screen name="GetStarted23" component={GetStarted23} />
+        <Stack.Screen name="GetStarted2" component={GetStarted2} />
+        <Stack.Screen name="Login" component={Login}/>
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="SearchScreen" component={SearchScreen} />
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />

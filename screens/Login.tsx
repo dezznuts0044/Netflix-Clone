@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   Alert,
   Dimensions,
@@ -8,11 +9,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import { useNavigation } from '@react-navigation/native'; 
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [verify, setVerify] = useState(false);
+  const navigation = useNavigation(); 
 
   const handleEmail = text => {
     setEmail(text);
@@ -23,13 +25,27 @@ const Login = () => {
     }
   };
 
+  const handleBackPress = () => {
+    navigation.navigate('GetStarted2'); 
+  };
+
+  const handleSignInPress = () => {
+    if (verify) {
+      navigation.navigate('HomeScreen'); 
+    } else {
+      Alert.alert('Invalid email address');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <Image
-          source={require('../assets/icons/arrow_back_24dp.png')}
-          style={styles.icon}
-        />
+        <TouchableOpacity onPress={handleBackPress}>
+          <Image
+            source={require('../assets/icons/arrow_back_24dp.png')}
+            style={styles.icon}
+          />
+        </TouchableOpacity>
         <Image
           source={require('../assets/img/mainLogo.png')}
           style={styles.image}
@@ -51,22 +67,20 @@ const Login = () => {
       />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => Alert.alert('Button pressed')}
-        disabled={!verify}>
+        onPress={handleSignInPress}
+        disabled={!verify}
+      >
         <Text style={styles.btext}>Sign In</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default Login;
-
 const styles = StyleSheet.create({
   icon: {
     resizeMode: 'contain',
     width: 36,
     height: 36,
-    alignContent: 'flex-start',
   },
   container: {
     flex: 1,
@@ -84,7 +98,7 @@ const styles = StyleSheet.create({
     padding: 17,
     opacity: 66,
     borderRadius: 10,
-    backgroundColor: '#656060', // Light background for the input
+    backgroundColor: '#656060', 
   },
   inputP: {
     height: 70,
@@ -94,7 +108,7 @@ const styles = StyleSheet.create({
     padding: 17,
     borderRadius: 10,
     opacity: 0.6,
-    backgroundColor: '#BBB8B8', // Light background for the input
+    backgroundColor: '#BBB8B8', 
   },
   button: {
     backgroundColor: '#C60A0A',
@@ -113,7 +127,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   text1: {
-    color: 'black', // Set text color to black for better contrast
+    color: 'black',
     fontSize: 14,
     fontFamily: 'Montserrat',
     fontWeight: '400',
@@ -121,7 +135,7 @@ const styles = StyleSheet.create({
     paddingTop: 17,
   },
   text2: {
-    color: 'black', // Set text color to black for better contrast
+    color: 'black', 
     fontSize: 24,
     fontFamily: 'Montserrat',
     fontWeight: '500',
@@ -148,3 +162,5 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
+export default Login;

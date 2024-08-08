@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   Alert,
   Dimensions,
@@ -8,11 +9,12 @@ import {
   View,
   Image,
 } from 'react-native';
-import React, {useState} from 'react';
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation
 
 const GetStarted2 = () => {
   const [email, setEmail] = useState('');
   const [verify, setVerify] = useState(false);
+  const navigation = useNavigation(); // Get navigation object
 
   const handleEmail = text => {
     setEmail(text);
@@ -22,35 +24,46 @@ const GetStarted2 = () => {
       setVerify(false);
     }
   };
+
+  const handleGetStartedPress = () => {
+    if (verify) {
+      navigation.navigate('Login');
+    } else {
+      Alert.alert('Invalid email address');
+    }
+  };
+
+  const handleCrossPress = () => {
+    navigation.navigate('GetStarted1');
+  };
+
   return (
-    <>
-      <View style={styles.Container}>
+    <View style={styles.Container}>
+      <TouchableOpacity onPress={handleCrossPress}>
         <Image
           source={require('../assets/icons/close_24dp.png')}
           style={styles.icon}
         />
-        <Text style={styles.text2}>Ready to watch?</Text>
-        <Text style={styles.text1}>
-          Enter your email to create or sign in {'\n'}to your account.
-        </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          onChangeText={handleEmail}
-          value={email}
-        />
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => Alert.alert('Button pressed')}>
-          <Text style={styles.btext}>GET STARTED</Text>
-        </TouchableOpacity>
-      </View>
-    </>
+      </TouchableOpacity>
+      <Text style={styles.text2}>Ready to watch?</Text>
+      <Text style={styles.text1}>
+        Enter your email to create or sign in {'\n'}to your account.
+      </Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        onChangeText={handleEmail}
+        value={email}
+      />
+      <TouchableOpacity
+        style={styles.button}
+        onPress={handleGetStartedPress}
+      >
+        <Text style={styles.btext}>GET STARTED</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
-
-export default GetStarted2;
 
 const styles = StyleSheet.create({
   Container: {
@@ -65,11 +78,13 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.7,
     margin: 25,
     borderWidth: 1,
-    borderBlockColor: '#221FB4',
+    borderColor: '#221FB4', // Fixed typo: borderBlockColor -> borderColor
     padding: 17,
     borderRadius: 10,
   },
   icon: {
+    marginLeft: Dimensions.get('window').width * 0.8,
+    marginTop:20,
     width: 36,
     height: 36,
     alignSelf: 'flex-end',
@@ -105,3 +120,5 @@ const styles = StyleSheet.create({
     paddingTop: 134,
   },
 });
+
+export default GetStarted2;

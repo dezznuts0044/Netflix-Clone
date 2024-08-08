@@ -39,8 +39,8 @@ const GetStarted1 = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      const data = await response.json(); // Parse JSON response
-      setMovies(data); // Assuming setMovies is a state setter for storing movie data
+      const data = await response.json();
+      setMovies(data); 
       console.log(data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -97,6 +97,28 @@ const GetStarted1 = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.flatListContent}
       />
+      <Text style={styles.btext1}>Trending</Text>
+      <FlatList
+        data={movies}
+        renderItem={({item}) => (
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => {
+              setBackgroundImage(item.image);
+              setSelectedMovie(item);
+            }}>
+            <Image source={{uri: item.image}} style={styles.cardImage} />
+            <View style={styles.cardContent}>
+              <Text style={styles.cardTitle}>{item.title}</Text>
+              <Text style={styles.cardRating}>Rating: {item.rating}</Text>
+            </View>
+          </TouchableOpacity>
+        )}
+        keyExtractor={item => item.id}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.flatListContent}
+      />
       <Modal
         animationType="slide"
         transparent={true}
@@ -129,7 +151,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     alignItems: 'center',
     paddingHorizontal: 20,
-    flex: 1,
+    flexGrow: 1,
   },
   backgroundContainer: {
     width: Dimensions.get('window').width,

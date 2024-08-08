@@ -1,0 +1,3 @@
+interface Email {
+  id: string;
+}

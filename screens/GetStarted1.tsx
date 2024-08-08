@@ -1,18 +1,17 @@
-import {
-  Alert,
-  Dimensions,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
 import React from 'react';
+import { Alert, Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 
 const GetStarted1 = () => {
+  const navigation = useNavigation();
+
+  const handleButtonPress = () => {
+    navigation.navigate('GetStarted2');
+  };
+
   return (
-    <ScrollView style={{backgroundColor: 'black'}}>
+    <ScrollView style={{ backgroundColor: 'black' }}>
       <View style={styles.container}>
         <Image
           source={require('../assets/img/getStarted1.png')}
@@ -29,14 +28,13 @@ const GetStarted1 = () => {
       <Text style={styles.btext2}>All of Netflix, starting at just ₹149.</Text>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => Alert.alert('Button pressed')}>
+        onPress={handleButtonPress}
+      >
         <Text style={styles.buttonText}>GET STARTED</Text>
       </TouchableOpacity>
     </ScrollView>
   );
 };
-
-export default GetStarted1;
 
 const styles = StyleSheet.create({
   container: {
@@ -75,7 +73,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat',
     fontWeight: 'bold',
     textAlign: 'center',
-    marginTop: 20,
+    marginTop: -10,
   },
   btext2: {
     color: 'white',
@@ -86,3 +84,5 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
 });
+
+export default GetStarted1;
