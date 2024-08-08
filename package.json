@@ -14,7 +14,8 @@
     "axios": "^1.7.3",
     "react": "18.2.0",
     "react-native": "0.74.4",
-    "react-native-video": "^6.4.3"
+    "react-native-video": "^6.4.3",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

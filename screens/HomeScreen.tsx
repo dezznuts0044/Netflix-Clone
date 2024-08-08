@@ -50,16 +50,17 @@ const GetStarted1 = () => {
   return (
     <ScrollView contentContainerStyle={styles.Container}>
       <View style={styles.backgroundContainer}>
-        {backgroundImage && (
+        {backgroundImage ? (
           <Image
             source={{uri: backgroundImage}}
             style={styles.backgroundImage}
           />
+        ) : (
+          <Image
+            source={require('../assets/img/getStarted1.png')}
+            style={styles.overlayImage}
+          />
         )}
-        <Image
-          source={require('../assets/img/getStarted1.png')}
-          style={styles.overlayImage}
-        />
       </View>
       <View>
         <TouchableOpacity style={styles.button} onPress={playTrailer}>
@@ -97,7 +98,7 @@ const GetStarted1 = () => {
         }}>
         <View style={styles.modalView}>
           <Video
-            source={{uri: selectedMovie?.trailer}}
+            source={{uri: 'https://www.w3schools.com/html/mov_bbb.mp4'}}
             style={styles.video}
             controls={true}
             resizeMode="contain"
@@ -136,11 +137,9 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   overlayImage: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height * 0.5,
+    width: '100%',
+    height: '100%',
     resizeMode: 'cover',
-    position: 'absolute',
-    top: 0,
   },
   button: {
     backgroundColor: 'white',
