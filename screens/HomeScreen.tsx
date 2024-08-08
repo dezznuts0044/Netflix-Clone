@@ -25,22 +25,14 @@ const GetStarted1 = () => {
   }, []);
 
   async function getMovie() {
-    const url = 'https://imdb-top-100-movies.p.rapidapi.com/';
-    const options = {
-      method: 'GET',
-      headers: {
-        'x-rapidapi-key': '0d2278ebbdmsh50e6af77e3e1e41p14d132jsnc83402e2307f',
-        'x-rapidapi-host': 'imdb-top-100-movies.p.rapidapi.com',
-      },
-    };
-
+    const url = 'https://freetestapi.com/api/v1/movies';
     try {
-      const response = await fetch(url, options);
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      const data = await response.json(); // Parse JSON response
-      setMovies(data); // Assuming setMovies is a state setter for storing movie data
+      const data = await response.json();
+      setMovies(data);
       console.log(data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -48,7 +40,7 @@ const GetStarted1 = () => {
   }
 
   const playTrailer = () => {
-    if (selectedMovie || selectedMovie.trailer) {
+    if (selectedMovie && selectedMovie.trailer) {
       setModalVisible(true);
     } else {
       Alert.alert('No trailer available');
@@ -58,17 +50,16 @@ const GetStarted1 = () => {
   return (
     <ScrollView contentContainerStyle={styles.Container}>
       <View style={styles.backgroundContainer}>
-        {backgroundImage ? (
+        {backgroundImage && (
           <Image
             source={{uri: backgroundImage}}
             style={styles.backgroundImage}
           />
-        ) : (
-          <Image
-            source={require('../assets/img/getStarted1.png')}
-            style={styles.overlayImage}
-          />
         )}
+        <Image
+          source={require('../assets/img/getStarted1.png')}
+          style={styles.overlayImage}
+        />
       </View>
       <View>
         <TouchableOpacity style={styles.button} onPress={playTrailer}>
@@ -82,10 +73,10 @@ const GetStarted1 = () => {
           <TouchableOpacity
             style={styles.card}
             onPress={() => {
-              setBackgroundImage(item.image);
+              setBackgroundImage(item.poster);
               setSelectedMovie(item);
             }}>
-            <Image source={{uri: item.image}} style={styles.cardImage} />
+            <Image source={{uri: item.poster}} style={styles.cardImage} />
             <View style={styles.cardContent}>
               <Text style={styles.cardTitle}>{item.title}</Text>
               <Text style={styles.cardRating}>Rating: {item.rating}</Text>
@@ -106,7 +97,7 @@ const GetStarted1 = () => {
         }}>
         <View style={styles.modalView}>
           <Video
-            source={{uri: 'https://www.w3schools.com/html/mov_bbb.mp4'}}
+            source={{uri: selectedMovie?.trailer}}
             style={styles.video}
             controls={true}
             resizeMode="contain"
@@ -145,13 +136,15 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   overlayImage: {
-    width: '100%',
-    height: '100%',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height * 0.5,
     resizeMode: 'cover',
+    position: 'absolute',
+    top: 0,
   },
   button: {
     backgroundColor: 'white',
-    marginTop: 10,
+    marginTop: -60,
     height: 56,
     width: 100,
     borderRadius: 5,
