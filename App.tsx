@@ -1,46 +1,31 @@
-import React, {useState, useEffect} from 'react';
-import Login from './screens/Login';
+import React, { useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from './screens/SplashScreen';
 import GetStarted1 from './screens/GetStarted1';
-import GetStarted2 from './screens/GetStarted2';
+import GetStarted23 from './screens/GetStarted23';
 import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
-import {
-  Text,
-  View,
-  StyleSheet,
-  Button,
-  TextInput,
-  Image,
-  ActivityIndicator,
-} from 'react-native';
 import ProfileScreen from './screens/ProfileScreen';
 
-const App = () => {
-  return <SearchScreen />;
-};
+const Stack = createStackNavigator();
 
-const styles = StyleSheet.create({
-  Heading: {
-    fontFamily: 'Cochin',
-    fontSize: 40,
-    fontWeight: 'bold',
-    padding: 20,
-  },
-  Container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black',
-  },
-  TextBox: {
-    height: 40,
-    borderWidth: 2,
-    borderColor: '#29660C',
-    margin: 10,
-    padding: 3,
-    backgroundColor: '#578E87',
-  },
-});
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="SplashScreen"
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name="SplashScreen" component={SplashScreen} />
+        <Stack.Screen name="GetStarted1" component={GetStarted1} />
+        <Stack.Screen name="GetStarted23" component={GetStarted23} />
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="SearchScreen" component={SearchScreen} />
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
 export default App;

@@ -1,15 +1,27 @@
+import React, {useEffect} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
-import React from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 const SplashScreen = () => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.navigate('GetStarted1');
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [navigation]);
+
   return (
     <View style={styles.Container}>
-      <Image source={require('../assets/img/mainLogo.png')} />
+      <Image
+        source={require('../assets/img/mainLogo.png')}
+        style={styles.logo}
+      />
     </View>
   );
 };
-
-export default SplashScreen;
 
 const styles = StyleSheet.create({
   Container: {
@@ -18,4 +30,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'black',
   },
+  logo: {
+    marginBottom:100,
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
+  },
 });
+
+export default SplashScreen;
