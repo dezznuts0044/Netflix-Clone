@@ -17,7 +17,7 @@ import {
 import ProfileScreen from './screens/ProfileScreen';
 
 const App = () => {
-  return <HomeScreen />;
+  return <ProfileScreen />;
 };
 
 const styles = StyleSheet.create({

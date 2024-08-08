@@ -25,14 +25,22 @@ const GetStarted1 = () => {
   }, []);
 
   async function getMovie() {
-    const url = 'https://freetestapi.com/api/v1/movies';
+    const url = 'https://imdb-top-100-movies.p.rapidapi.com/';
+    const options = {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-key': '0d2278ebbdmsh50e6af77e3e1e41p14d132jsnc83402e2307f',
+        'x-rapidapi-host': 'imdb-top-100-movies.p.rapidapi.com',
+      },
+    };
+
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, options);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      const data = await response.json();
-      setMovies(data);
+      const data = await response.json(); // Parse JSON response
+      setMovies(data); // Assuming setMovies is a state setter for storing movie data
       console.log(data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -40,7 +48,7 @@ const GetStarted1 = () => {
   }
 
   const playTrailer = () => {
-    if (selectedMovie && selectedMovie.trailer) {
+    if (selectedMovie || selectedMovie.trailer) {
       setModalVisible(true);
     } else {
       Alert.alert('No trailer available');
@@ -74,10 +82,10 @@ const GetStarted1 = () => {
           <TouchableOpacity
             style={styles.card}
             onPress={() => {
-              setBackgroundImage(item.poster);
+              setBackgroundImage(item.image);
               setSelectedMovie(item);
             }}>
-            <Image source={{uri: item.poster}} style={styles.cardImage} />
+            <Image source={{uri: item.image}} style={styles.cardImage} />
             <View style={styles.cardContent}>
               <Text style={styles.cardTitle}>{item.title}</Text>
               <Text style={styles.cardRating}>Rating: {item.rating}</Text>
