@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Alert,
   Dimensions,
@@ -17,12 +17,12 @@ const SearchScreen = () => {
   const [results, setResults] = useState([]);
 
   const handleSearch = async () => {
-    const url = `https://moviedatabase8.p.rapidapi.com/Search/${query}`;
+    const url = `https://imdb-movies-web-series-etc-search.p.rapidapi.com/${query.trim()}.json`;
     const options = {
       method: 'GET',
       headers: {
-        'x-rapidapi-key': '0d2278ebbdmsh50e6af77e3e1e41p14d132jsnc83402e2307f',
-        'x-rapidapi-host': 'moviedatabase8.p.rapidapi.com',
+        'x-rapidapi-key': 'e9f224fc91msh0f461ebde225353p1d9018jsncbc581e093ca',
+        'x-rapidapi-host': 'imdb-movies-web-series-etc-search.p.rapidapi.com',
       },
     };
 
@@ -32,7 +32,7 @@ const SearchScreen = () => {
         throw new Error('Network response was not ok');
       }
       const result = await response.json();
-      setResults(result.slice(0, 2)); // Limit results to 2
+      setResults(result.d);
     } catch (error) {
       console.error('Error fetching search results:', error);
       Alert.alert('Error', 'Failed to fetch search results');
@@ -54,16 +54,20 @@ const SearchScreen = () => {
 
       <FlatList
         data={results}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({item}) => (
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
           <View style={styles.resultItem}>
             <Image
               source={{
-                uri: item.backdrop_path || 'https://via.placeholder.com/150',
+                uri: item.i?.imageUrl || 'https://via.placeholder.com/150',
               }}
               style={styles.resultImage}
             />
-            <Text style={styles.resultText}>{item.title || 'No Title'}</Text>
+            <View>
+              <Text style={styles.resultText}>{item.l || 'No Title'}</Text>
+              <Text style={styles.resultSubText}>{item.s || 'No Cast Information'}</Text>
+              <Text style={styles.resultSubText}>{item.y || 'No Year'}</Text>
+            </View>
           </View>
         )}
       />
@@ -124,5 +128,9 @@ const styles = StyleSheet.create({
   resultText: {
     color: 'white',
     fontSize: 18,
+  },
+  resultSubText: {
+    color: 'gray',
+    fontSize: 14,
   },
 });
