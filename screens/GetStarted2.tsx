@@ -9,12 +9,12 @@ import {
   View,
   Image,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation
+import { useNavigation } from '@react-navigation/native'; 
 
 const GetStarted2 = () => {
   const [email, setEmail] = useState('');
   const [verify, setVerify] = useState(false);
-  const navigation = useNavigation(); // Get navigation object
+  const navigation = useNavigation();
 
   const handleEmail = text => {
     setEmail(text);
@@ -27,7 +27,7 @@ const GetStarted2 = () => {
 
   const handleGetStartedPress = () => {
     if (verify) {
-      navigation.navigate('Login');
+      navigation.navigate('Login',{email:email});
     } else {
       Alert.alert('Invalid email address');
     }
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.7,
     margin: 25,
     borderWidth: 1,
-    borderColor: '#221FB4', // Fixed typo: borderBlockColor -> borderColor
+    borderColor: '#221FB4', 
     padding: 17,
     borderRadius: 10,
   },

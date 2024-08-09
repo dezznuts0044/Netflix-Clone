@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Alert,
   Dimensions,
@@ -13,23 +13,34 @@ import {
   View,
 } from 'react-native';
 import Video from 'react-native-video';
+import { useNavigation } from '@react-navigation/native'; 
 
-const GetStarted1 = () => {
+const HomeScreen = () => {
   const [movies, setMovies] = useState([]);
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const navigation = useNavigation();
 
   useEffect(() => {
     getMovie();
   }, []);
+
+  const handleDesPress = (movie) => {
+    navigation.navigate('DescriptionScreen', {
+      movieId: movie.id,
+      title: movie.title,
+      image: movie.image,
+      des: movie.description,
+    });
+  };
 
   async function getMovie() {
     const url = 'https://imdb-top-100-movies.p.rapidapi.com/';
     const options = {
       method: 'GET',
       headers: {
-        'x-rapidapi-key': '0d2278ebbdmsh50e6af77e3e1e41p14d132jsnc83402e2307f',
+        'x-rapidapi-key': 'e9f224fc91msh0f461ebde225353p1d9018jsncbc581e093ca',
         'x-rapidapi-host': 'imdb-top-100-movies.p.rapidapi.com',
       },
     };
@@ -40,7 +51,7 @@ const GetStarted1 = () => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-      setMovies(data); 
+      setMovies(data);
       console.log(data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -48,7 +59,7 @@ const GetStarted1 = () => {
   }
 
   const playTrailer = () => {
-    if (selectedMovie || selectedMovie.trailer) {
+    if (!null) {
       setModalVisible(true);
     } else {
       Alert.alert('No trailer available');
@@ -60,7 +71,7 @@ const GetStarted1 = () => {
       <View style={styles.backgroundContainer}>
         {backgroundImage ? (
           <Image
-            source={{uri: backgroundImage}}
+            source={{ uri: backgroundImage }}
             style={styles.backgroundImage}
           />
         ) : (
@@ -78,21 +89,23 @@ const GetStarted1 = () => {
       <Text style={styles.btext1}>Popular on Netflix</Text>
       <FlatList
         data={movies}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.card}
             onPress={() => {
               setBackgroundImage(item.image);
               setSelectedMovie(item);
-            }}>
-            <Image source={{uri: item.image}} style={styles.cardImage} />
+              handleDesPress(item);
+            }}
+          >
+            <Image source={{ uri: item.image }} style={styles.cardImage} />
             <View style={styles.cardContent}>
               <Text style={styles.cardTitle}>{item.title}</Text>
               <Text style={styles.cardRating}>Rating: {item.rating}</Text>
             </View>
           </TouchableOpacity>
         )}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.flatListContent}
@@ -100,21 +113,23 @@ const GetStarted1 = () => {
       <Text style={styles.btext1}>Trending</Text>
       <FlatList
         data={movies}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.card}
             onPress={() => {
               setBackgroundImage(item.image);
               setSelectedMovie(item);
-            }}>
-            <Image source={{uri: item.image}} style={styles.cardImage} />
+              handleDesPress(item);
+            }}
+          >
+            <Image source={{ uri: item.image }} style={styles.cardImage} />
             <View style={styles.cardContent}>
               <Text style={styles.cardTitle}>{item.title}</Text>
               <Text style={styles.cardRating}>Rating: {item.rating}</Text>
             </View>
           </TouchableOpacity>
         )}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.flatListContent}
@@ -125,17 +140,19 @@ const GetStarted1 = () => {
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
-        }}>
+        }}
+      >
         <View style={styles.modalView}>
           <Video
-            source={{uri: 'https://www.w3schools.com/html/mov_bbb.mp4'}}
+            source={{ uri: 'https://www.w3schools.com/html/mov_bbb.mp4' }}
             style={styles.video}
             controls={true}
             resizeMode="contain"
           />
           <Pressable
             style={styles.closeButton}
-            onPress={() => setModalVisible(!modalVisible)}>
+            onPress={() => setModalVisible(!modalVisible)}
+          >
             <Text style={styles.closeButtonText}>Close</Text>
           </Pressable>
         </View>
@@ -144,7 +161,7 @@ const GetStarted1 = () => {
   );
 };
 
-export default GetStarted1;
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   Container: {

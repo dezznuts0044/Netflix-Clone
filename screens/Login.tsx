@@ -11,18 +11,16 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [verify, setVerify] = useState(false);
+const Login = (route) => {
+  const data= route.route.params.email;
+  console.log('data=',data);
+  const [email, setEmail] = useState(data);
+
   const navigation = useNavigation(); 
 
   const handleEmail = text => {
     setEmail(text);
-    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)) {
-      setVerify(true);
-    } else {
-      setVerify(false);
-    }
+ 
   };
 
   const handleBackPress = () => {
@@ -30,11 +28,10 @@ const Login = () => {
   };
 
   const handleSignInPress = () => {
-    if (verify) {
+ 
       navigation.navigate('HomeScreen'); 
-    } else {
-      Alert.alert('Invalid email address');
-    }
+
+ 
   };
 
   return (
@@ -57,9 +54,7 @@ const Login = () => {
         onChangeText={handleEmail}
         value={email}
       />
-      {!verify && email.length > 0 && (
-        <Text style={styles.errorText}>Enter a valid Email</Text>
-      )}
+
       <TextInput
         style={styles.inputP}
         placeholder="Password"
@@ -68,7 +63,6 @@ const Login = () => {
       <TouchableOpacity
         style={styles.button}
         onPress={handleSignInPress}
-        disabled={!verify}
       >
         <Text style={styles.btext}>Sign In</Text>
       </TouchableOpacity>
