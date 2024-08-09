@@ -9,7 +9,7 @@ import {
   View,
   Image,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; 
+import {useNavigation} from '@react-navigation/native';
 
 const GetStarted2 = () => {
   const [email, setEmail] = useState('');

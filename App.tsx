@@ -8,6 +8,7 @@ import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import Login from './screens/Login';
+import NavBar from "./component/NavBar";
 import DescriptionScreen from './screens/DescriptionScreen';
 
 const Stack = createStackNavigator();
@@ -21,6 +22,7 @@ const App = () => {
       >
         <Stack.Screen name="DescriptionScreen" component={DescriptionScreen}/>
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
+        <Stack.Screen name="NavBar" component={NavBar} />
         <Stack.Screen name="GetStarted1" component={GetStarted1} />
         <Stack.Screen name="GetStarted2" component={GetStarted2} />
         <Stack.Screen name="Login" component={Login}/>

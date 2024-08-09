@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const SplashScreen = () => {
   const navigation = useNavigation();
@@ -14,21 +15,21 @@ const SplashScreen = () => {
   }, [navigation]);
 
   return (
-    <View style={styles.Container}>
+    <ScrollView contentContainerStyle={styles.Container}>
       <Image
         source={require('../assets/img/mainLogo.png')}
         style={styles.logo}
       />
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   Container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'black',
+    flex:1,
   },
   logo: {
     marginBottom:100,

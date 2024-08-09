@@ -10,8 +10,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const ProfileScreen = () => {
+  const navigation = useNavigation();
+  const handleLogOut = () => {
+    navigation.navigate('GetStarted1');
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
@@ -20,20 +26,18 @@ const ProfileScreen = () => {
       <View style={styles.infoContainer}>
         <TextInput
           style={styles.input}
-          value="Test Name" // Default value for name
-          editable={false} // Make the field non-editable
+          value="Test Name"
+          editable={false} 
           placeholderTextColor="#888"
         />
         <TextInput
           style={styles.input}
-          value="testemail@example.com" // Default value for email
-          editable={false} // Make the field non-editable
+          value="testemail@example.com"
+          editable={false}
           placeholderTextColor="#888"
         />
       </View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => Alert.alert('Sign Out Button Pressed')}>
+      <TouchableOpacity style={styles.button} onPress={handleLogOut}>
         <Text style={styles.btext}>Sign Out</Text>
       </TouchableOpacity>
     </ScrollView>
@@ -47,6 +51,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     paddingHorizontal: 20,
     paddingVertical: 30,
+    flex: 1,
   },
   imageContainer: {
     alignItems: 'center',

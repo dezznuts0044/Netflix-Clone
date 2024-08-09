@@ -40,35 +40,33 @@ const SearchScreen = () => {
   };
 
   return (
-    <ScrollView style={{backgroundColor: 'black'}}>
-      <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          placeholder="Search movies, TV shows..."
-          placeholderTextColor="gray"
-          value={query}
-          onChangeText={setQuery}
-        />
-        <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-          <Text style={styles.searchButtonText}>Search</Text>
-        </TouchableOpacity>
+    <ScrollView contentContainerStyle={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder="Search movies, TV shows..."
+        placeholderTextColor="gray"
+        value={query}
+        onChangeText={setQuery}
+      />
+      <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
+        <Text style={styles.searchButtonText}>Search</Text>
+      </TouchableOpacity>
 
-        <FlatList
-          data={results}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => (
-            <View style={styles.resultItem}>
-              <Image
-                source={{
-                  uri: item.backdrop_path || 'https://via.placeholder.com/150',
-                }}
-                style={styles.resultImage}
-              />
-              <Text style={styles.resultText}>{item.title || 'No Title'}</Text>
-            </View>
-          )}
-        />
-      </View>
+      <FlatList
+        data={results}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({item}) => (
+          <View style={styles.resultItem}>
+            <Image
+              source={{
+                uri: item.backdrop_path || 'https://via.placeholder.com/150',
+              }}
+              style={styles.resultImage}
+            />
+            <Text style={styles.resultText}>{item.title || 'No Title'}</Text>
+          </View>
+        )}
+      />
     </ScrollView>
   );
 };
@@ -80,6 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     alignItems: 'center',
     paddingVertical: 20,
+    flex: 1,
   },
   input: {
     backgroundColor: '#333333',
@@ -90,6 +89,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     fontSize: 18,
     marginBottom: 20,
+    marginTop: 40,
   },
   searchButton: {
     backgroundColor: '#C60A0A',

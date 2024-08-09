@@ -29,7 +29,7 @@ const Login = (route) => {
 
   const handleSignInPress = () => {
  
-      navigation.navigate('HomeScreen'); 
+      navigation.navigate('NavBar'); 
 
  
   };
